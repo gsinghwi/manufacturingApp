@@ -2,6 +2,12 @@
 
 A single-page prototype for a manufacturing unit's daily desk work: stock, vendors, customers, sales and multi-currency invoicing.
 
+## Live site
+
+Hosted with GitHub Pages at **https://gsinghwi.github.io/manufacturingApp/** once Pages is turned on
+(Settings → Pages → Build and deployment → Source: *Deploy from a branch* → `main` / `/ (root)` → Save).
+GitHub Pages on a private repository needs a paid GitHub plan; on the free plan, make the repository public first.
+
 ## Run it
 
 Open `index.html` in a browser, or serve the folder:
@@ -27,6 +33,18 @@ The camera QR scanner needs `https://` or `localhost`. Data is kept in the brows
 
 Change the demo passwords after first sign-in.
 
+## Branding & appearance
+
+Administrators can open **Setup → Branding & appearance** to change, with a live preview:
+
+- Company name, monogram, tagline, browser tab title and logo (PNG/JPG/SVG/WebP up to 300 KB)
+- Accent and sidebar colours, or one of six colour presets
+- Typeface (five pairings), light/dark/device theme, and corner roundness
+- Sign-in headline and text
+- Invoice number prefix, company GSTIN, registered address and invoice terms
+
+Settings are saved in the browser alongside the rest of the prototype data.
+
 ## Modules
 
 | Module | What it does |
@@ -41,6 +59,7 @@ Change the demo passwords after first sign-in.
 | Stock ledger | Every receipt, sale and adjustment |
 | Vendors | Supplier master |
 | Users & access | Add, disable or remove users; role access matrix; change own password |
+| Branding & appearance | Logo, name, colours, typeface, theme, sign-in text, invoice prefix and terms |
 | Currency & rates | Base currency (default INR, switchable with re-pricing), enabled currencies, live rates, manual overrides, GST rate |
 
 ## QR label format

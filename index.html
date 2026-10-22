@@ -11,9 +11,9 @@
 /* Layout: blueprint-style workbench. Fixed left rail of plant modules, wide working canvas, ledger-like tables. */
 :root{
   --bg:#eef1f4; --panel:#ffffff; --sunk:#e4e8ed; --line:#d3d9e0; --fg:#18212b; --muted:#5b6876;
-  --accent:#1d55b8; --accent-ink:#ffffff; --accent-soft:#dde7f8;
+  --accent:var(--brand-accent,#1d55b8); --accent-ink:var(--brand-accent-ink,#ffffff); --accent-soft:color-mix(in srgb,var(--accent) 14%,#ffffff);
   --good:#1d7a4c; --good-soft:#dcf1e5; --warn:#a85d00; --warn-soft:#fbecd6; --bad:#b3261e; --bad-soft:#f9dedc;
-  --rail:#16202b; --rail-fg:#c5d0dc; --rail-active:#ffffff;
+  --rail:var(--brand-rail,#16202b); --rail-fg:#c5d0dc; --rail-active:#ffffff;
   --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
   --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
@@ -21,14 +21,14 @@
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0f151c; --panel:#161e27; --sunk:#1c2631; --line:#2a3542; --fg:#e3e9ef; --muted:#93a1b0;
-  --accent:#6c9cf0; --accent-ink:#0b1320; --accent-soft:#1d2d4a;
+  --accent:var(--brand-accent-dark,#6c9cf0); --accent-ink:#0b1320; --accent-soft:color-mix(in srgb,var(--accent) 20%,#161e27);
   --good:#5cc994; --good-soft:#15332a; --warn:#f0a94a; --warn-soft:#3a2a12; --bad:#f08a80; --bad-soft:#3d1c1a;
-  --rail:#0a0f14; --rail-fg:#8d9bab; --rail-active:#ffffff; color-scheme:dark}}
+  --rail:var(--brand-rail-dark,#0a0f14); --rail-fg:#8d9bab; --rail-active:#ffffff; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0f151c; --panel:#161e27; --sunk:#1c2631; --line:#2a3542; --fg:#e3e9ef; --muted:#93a1b0;
-  --accent:#6c9cf0; --accent-ink:#0b1320; --accent-soft:#1d2d4a;
+  --accent:var(--brand-accent-dark,#6c9cf0); --accent-ink:#0b1320; --accent-soft:color-mix(in srgb,var(--accent) 20%,#161e27);
   --good:#5cc994; --good-soft:#15332a; --warn:#f0a94a; --warn-soft:#3a2a12; --bad:#f08a80; --bad-soft:#3d1c1a;
-  --rail:#0a0f14; --rail-fg:#8d9bab; --rail-active:#ffffff; color-scheme:dark}
+  --rail:var(--brand-rail-dark,#0a0f14); --rail-fg:#8d9bab; --rail-active:#ffffff; color-scheme:dark}
 *{box-sizing:border-box}
 html,body{height:100%}
 body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:14px;line-height:1.45}
@@ -160,6 +160,25 @@ form.fm{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));ga
 .demo-flag{font-size:11px;padding:2px 8px;border-radius:3px;background:var(--warn-soft);color:var(--warn);font-weight:600}
 .var-pos{color:var(--good)} .var-neg{color:var(--bad)}
 .hide-sm{}
+.brand-logo{width:34px;height:34px;object-fit:contain;border-radius:4px;background:#fff;padding:2px}
+.nd-logo{width:56px;height:56px;object-fit:contain;border-radius:5px;background:#fff;padding:4px}
+.inv-logo{max-height:44px;max-width:150px;object-fit:contain;margin-bottom:6px}
+.swatches{display:flex;flex-wrap:wrap;gap:6px}
+.swatch{all:unset;cursor:pointer;display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:5px;padding:5px 9px;font-size:12.5px}
+.swatch:hover,.swatch:focus-visible{border-color:var(--accent)}
+.swatch i{display:flex;width:26px;height:14px;border-radius:2px;overflow:hidden}
+.swatch i b{flex:1}
+.color-row{display:flex;gap:6px;align-items:center}
+.color-row input[type=color]{width:40px;height:34px;border:1px solid var(--line);border-radius:5px;padding:2px;background:var(--panel);cursor:pointer}
+.logo-drop{display:flex;gap:12px;align-items:center;border:1px dashed var(--line);border-radius:var(--r);padding:10px}
+.logo-drop .ph{width:56px;height:56px;border-radius:5px;display:grid;place-items:center;background:var(--rail);color:#fff;font-family:var(--f-display);font-weight:800;font-size:20px;flex:none;overflow:hidden}
+.logo-drop .ph img{width:100%;height:100%;object-fit:contain;background:#fff}
+.preview{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:grid;grid-template-columns:120px minmax(0,1fr);min-height:220px}
+.preview .pv-rail{background:var(--rail);color:var(--rail-fg);padding:12px;display:flex;flex-direction:column;gap:8px;font-size:11.5px}
+.preview .pv-rail .on{background:rgba(255,255,255,.12);color:#fff;border-radius:4px;padding:4px 6px}
+.preview .pv-main{padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--bg);min-width:0}
+fieldset.grp{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+fieldset.grp legend{font-family:var(--f-display);font-weight:700;font-size:13px;padding:0;margin-bottom:8px}
 /* sign-in */
 .login{min-height:100%;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
 .login-brand{background:var(--rail);color:var(--rail-fg);padding-block:44px;padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:32px;display:flex;flex-direction:column;justify-content:space-between;gap:36px}
@@ -206,6 +225,7 @@ form.fm{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));ga
 </div>
 <div id="modal-root"></div>
 <input type="file" id="qr-file" accept="image/*" hidden>
+<input type="file" id="logo-file" accept="image/png,image/jpeg,image/svg+xml,image/webp" hidden>
 
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
@@ -285,6 +305,13 @@ function seed(){
 let S;
 try{ const raw=localStorage.getItem(KEY); S = raw?JSON.parse(raw):null }catch(e){ S=null }
 if(!S) S = seed();
+const DEFAULT_BRAND={company:'ND Enterprises',short:'ND',tagline:'Operations desk',logo:'',accent:'#1d55b8',rail:'#16202b',
+  font:'industrial',radius:6,theme:'system',prefix:'ND',appTitle:'ND Enterprises Desk',
+  loginHeadline:'Stock, sales and invoicing for the shop floor.',
+  loginText:'Scan item labels at the counter, bill customers in their own currency, and keep the stores ledger reconciled with the floor.',
+  terms:'Goods once sold will be taken back only against a rejection report within 7 days. Subject to Pune jurisdiction.'};
+S.brand={...DEFAULT_BRAND,...(S.brand||{})};
+const B=()=>S.brand;
 function save(){ try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){} }
 
 /* ============ Currency maths ============ */
@@ -302,7 +329,7 @@ function buildSale(st,cust,currency,lines){
   const tax=domestic? sub*st.settings.gst/100 : 0;
   st.settings.seq++;
   const mult = currency===base?1: (1/((st.settings.overrides[base]?1/st.settings.overrides[base]:st.settings.rates[base]))) * (st.settings.overrides[currency]?1/st.settings.overrides[currency]:st.settings.rates[currency]);
-  return {id:uid(),no:`ND/${fyCode()}/${String(st.settings.seq).padStart(4,'0')}`,date:today(),custId:cust.id,currency,base,mult,
+  return {id:uid(),no:`${(st.brand&&st.brand.prefix)||'ND'}/${fyCode()}/${String(st.settings.seq).padStart(4,'0')}`,date:today(),custId:cust.id,currency,base,mult,
     lines,sub,tax,taxMode:domestic?'GST':'LUT',total:sub+tax,rateSource:st.settings.ratesSource};
 }
 
@@ -320,7 +347,7 @@ const NAV=[
   ['Sales',[['sale','New sale'],['sales','Sales register'],['customers','Customers']]],
   ['Inventory',[['items','Stock master'],['stockin','Stock inward'],['recon','Reconciliation'],['ledger','Stock ledger']]],
   ['Purchasing',[['vendors','Vendors']]],
-  ['Setup',[['rates','Currency & rates'],['users','Users & access']]]
+  ['Setup',[['rates','Currency & rates'],['users','Users & access'],['branding','Branding & appearance']]]
 ];
 let view='dashboard';
 function lowCount(){ return S.items.filter(i=>i.stock<=i.reorder).length }
@@ -328,7 +355,7 @@ function renderRail(){
   const src=S.settings.ratesSource==='live'?'Live':S.settings.ratesSource==='manual'?'Manual':'Sample';
   const groups=NAV.map(([g,items])=>[g,items.filter(([k])=>can(k))]).filter(([,items])=>items.length);
   $('#rail').innerHTML=`
-    <div class="brand"><div class="brand-mark">ND</div><div><b>ND Enterprises</b><small>Operations desk</small></div></div>
+    <div class="brand">${logoMark('brand')}<div><b>${esc(B().company)}</b><small>${esc(B().tagline)}</small></div></div>
     ${groups.map(([g,items])=>`<div class="nav-group"><div class="nav-label">${g}</div>${items.map(([k,l])=>
       `<button class="nav-btn ${view===k?'on':''}" data-nav="${k}"><span>${l}</span>${k==='items'&&lowCount()?`<span class="pill">${lowCount()}</span>`:''}</button>`).join('')}</div>`).join('')}
     <div class="nav-group"><div class="nav-label">Account</div><button class="nav-btn" data-act="signout"><span>Sign out</span></button></div>
@@ -358,7 +385,7 @@ VIEWS.dashboard=()=>{
   const byCcy={}; S.sales.forEach(s=>{byCcy[s.currency]=(byCcy[s.currency]||0)+conv(s.total,s.base,b)});
   const maxC=Math.max(1,...Object.values(byCcy));
   const recent=[...S.sales].sort((a,z)=>z.date.localeCompare(a.date)).slice(0,5);
-  return head('ND Enterprises · '+now.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'}),`Good ${now.getHours()<12?'morning':now.getHours()<17?'afternoon':'evening'}, ${esc(me.name.split(' ')[0])}`,'Stock position, this month’s billing and today’s exchange rates at a glance.',
+  return head(esc(B().company)+' · '+now.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'}),`Good ${now.getHours()<12?'morning':now.getHours()<17?'afternoon':'evening'}, ${esc(me.name.split(' ')[0])}`,'Stock position, this month’s billing and today’s exchange rates at a glance.',
     can('sale')?`<button class="btn primary big" data-nav="sale">${ICON.qr} New sale</button>`:can('stockin')?`<button class="btn primary big" data-nav="stockin">${ICON.plus} Record inward</button>`:'')+`
   <div class="grid g-4" style="margin-bottom:16px">
     <div class="card tile"><span class="eyebrow">Stock value at cost</span><span class="v">${money(value,b)}</span><span class="s">${S.items.length} SKUs · ${qty(S.items.reduce((a,i)=>a+i.stock,0))} units on hand</span></div>
@@ -659,6 +686,97 @@ VIEWS.users=()=>head('Setup','Users & access','Who can sign in and which screens
   ${NAV.flatMap(([,items])=>items).map(([k,l])=>`<tr><td>${l}</td>${Object.keys(ROLES).map(r=>`<td>${ACCESS[r]==='*'||ACCESS[r].includes(k)?'<span class="chip ok">Yes</span>':'<span class="chip neutral">No</span>'}</td>`).join('')}</tr>`).join('')}
   </tbody></table></div></div></div>`;
 
+/* ---- Branding & appearance ---- */
+const FONTS={
+  industrial:{label:'Industrial · Archivo / IBM Plex',display:'"Archivo","Helvetica Neue",Arial,sans-serif',body:'"IBM Plex Sans",system-ui,sans-serif',css:''},
+  classic:{label:'Classic · Source Serif / Source Sans',display:'"Source Serif 4",Georgia,serif',body:'"Source Sans 3",system-ui,sans-serif',css:'family=Source+Serif+4:wght@600;700&family=Source+Sans+3:wght@400;600'},
+  modern:{label:'Modern · Manrope',display:'"Manrope",system-ui,sans-serif',body:'"Manrope",system-ui,sans-serif',css:'family=Manrope:wght@400;500;700;800'},
+  humanist:{label:'Humanist · Fraunces / Work Sans',display:'"Fraunces",Georgia,serif',body:'"Work Sans",system-ui,sans-serif',css:'family=Fraunces:opsz,wght@9..144,700&family=Work+Sans:wght@400;500;600'},
+  system:{label:'Device default',display:'system-ui,-apple-system,"Segoe UI",sans-serif',body:'system-ui,-apple-system,"Segoe UI",sans-serif',css:''}
+};
+const PRESETS=[['ND Blue','#1d55b8','#16202b'],['Forest','#1f7a55','#13241d'],['Graphite','#4a5868','#1b1f24'],['Crimson','#b3263a','#241417'],['Saffron','#c26a00','#231a10'],['Indigo','#5146c9','#191733']];
+function hexToRgb(h){ const m=/^#?([0-9a-f]{6})$/i.exec(h||''); if(!m) return null; const n=parseInt(m[1],16); return [n>>16&255,n>>8&255,n&255] }
+function lum(h){ const c=hexToRgb(h); if(!c) return 0; const [r,g,b]=c.map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)}); return .2126*r+.7152*g+.0722*b }
+function applyBrand(){
+  const b=B(), st=document.documentElement.style, f=FONTS[b.font]||FONTS.industrial;
+  st.setProperty('--brand-accent',b.accent);
+  st.setProperty('--brand-accent-dark',`color-mix(in srgb,${b.accent} 62%,#ffffff)`);
+  st.setProperty('--brand-accent-ink',lum(b.accent)>.45?'#111418':'#ffffff');
+  st.setProperty('--brand-rail',b.rail);
+  st.setProperty('--brand-rail-dark',`color-mix(in srgb,${b.rail} 70%,#000000)`);
+  st.setProperty('--r',(+b.radius||0)+'px');
+  st.setProperty('--f-display',f.display); st.setProperty('--f-body',f.body);
+  if(f.css && !document.getElementById('font-'+b.font)){ const l=document.createElement('link'); l.rel='stylesheet'; l.id='font-'+b.font; l.href=`https://fonts.googleapis.com/css2?${f.css}&display=swap`; document.head.append(l) }
+  if(b.theme==='system') document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme',b.theme);
+  document.title=b.appTitle||b.company;
+}
+function logoMark(kind){
+  const b=B();
+  if(b.logo) return `<img class="${kind==='nd'?'nd-logo':'brand-logo'}" src="${b.logo}" alt="${esc(b.company)} logo">`;
+  return `<div class="${kind==='nd'?'nd-mark':'brand-mark'}">${esc(b.short||'')}</div>`;
+}
+function brandPreview(){
+  const b=B();
+  return `<div class="preview"><div class="pv-rail"><div class="row" style="gap:6px;color:#fff">${logoMark('brand')}<b style="font-family:var(--f-display);font-size:12px">${esc(b.short)}</b></div><span class="on">Plant overview</span><span>New sale</span><span>Stock master</span></div>
+    <div class="pv-main"><div class="eyebrow">${esc(b.company)}</div><div style="font-family:var(--f-display);font-weight:800;font-size:19px">Good morning</div>
+      <div class="row"><button class="btn primary" type="button" tabindex="-1">Create invoice</button><span class="chip info">GST 18%</span></div>
+      <div class="card tile"><span class="eyebrow">Invoice no.</span><span class="v mono" style="font-size:16px">${esc(b.prefix)}/${fyCode()}/0043</span></div></div></div>`;
+}
+VIEWS.branding=()=>{
+  const b=B(), co=S.settings;
+  const txt=(id,label,val,extra='')=>`<div class="fld"><label for="br-${id}">${label}</label><input class="inp" id="br-${id}" data-brand="${id}" value="${esc(val)}" ${extra}></div>`;
+  return head('Setup','Branding & appearance','Changes apply as you type and are saved automatically for everyone who uses this browser.',
+    `<button class="btn" data-act="brand-reset">Reset to defaults</button>`)+`
+  <div class="grid g-sale">
+    <div class="stack">
+      <div class="card"><div class="card-b"><fieldset class="grp"><legend>Identity</legend>
+        <div class="logo-drop"><div class="ph">${b.logo?`<img src="${b.logo}" alt="">`:esc(b.short)}</div>
+          <div class="stack" style="gap:6px"><span style="font-size:12.5px">Logo · PNG, JPG or SVG up to 300 KB. Square works best.</span>
+          <div class="row"><button class="btn" type="button" data-act="logo-upload">Upload logo</button>${b.logo?`<button class="btn ghost danger" type="button" data-act="logo-remove">Remove</button>`:''}</div></div></div>
+        <form class="fm" onsubmit="return false">
+          ${txt('company','Company name',b.company,'maxlength="60"')}
+          ${txt('short','Monogram (no logo)',b.short,'maxlength="4"')}
+          ${txt('tagline','Tagline under name',b.tagline,'maxlength="40"')}
+          ${txt('appTitle','Browser tab title',b.appTitle,'maxlength="60"')}
+        </form></fieldset></div></div>
+      <div class="card"><div class="card-b"><fieldset class="grp"><legend>Colours</legend>
+        <div class="swatches">${PRESETS.map(([n,a,r])=>`<button class="swatch" type="button" data-preset="${a}|${r}"><i><b style="background:${r}"></b><b style="background:${a}"></b></i>${n}</button>`).join('')}</div>
+        <div class="fm">
+          <div class="fld"><label for="br-accent">Accent (buttons, links)</label><div class="color-row"><input type="color" id="br-accent-pick" data-brand="accent" value="${b.accent}" aria-label="Accent colour"><input class="inp mono" id="br-accent" data-brand="accent" value="${b.accent}" pattern="#[0-9a-fA-F]{6}"></div></div>
+          <div class="fld"><label for="br-rail">Sidebar & sign-in panel</label><div class="color-row"><input type="color" id="br-rail-pick" data-brand="rail" value="${b.rail}" aria-label="Sidebar colour"><input class="inp mono" id="br-rail" data-brand="rail" value="${b.rail}" pattern="#[0-9a-fA-F]{6}"></div></div>
+        </div>
+        ${lum(b.rail)>.35?'<div class="err" style="border-color:var(--warn);background:var(--warn-soft);color:var(--warn)">This sidebar colour is light, so its white text will be hard to read. Pick a darker shade.</div>':''}
+      </fieldset></div></div>
+      <div class="card"><div class="card-b"><fieldset class="grp"><legend>Look & feel</legend><div class="fm">
+        <div class="fld"><label for="br-font">Typeface</label><select class="inp" id="br-font" data-brand="font">${Object.entries(FONTS).map(([k,f])=>`<option value="${k}" ${k===b.font?'selected':''}>${f.label}</option>`).join('')}</select></div>
+        <div class="fld"><label for="br-theme">Theme</label><select class="inp" id="br-theme" data-brand="theme">${[['system','Follow device'],['light','Always light'],['dark','Always dark']].map(([k,l])=>`<option value="${k}" ${k===b.theme?'selected':''}>${l}</option>`).join('')}</select></div>
+        <div class="fld"><label for="br-radius">Corner roundness · <span id="radius-val">${b.radius}px</span></label><input type="range" id="br-radius" data-brand="radius" min="0" max="16" value="${b.radius}"></div>
+      </div></fieldset></div></div>
+      <div class="card"><div class="card-b"><fieldset class="grp"><legend>Sign-in screen</legend><form class="fm" onsubmit="return false">
+        <div class="fld full"><label for="br-loginHeadline">Headline</label><input class="inp" id="br-loginHeadline" data-brand="loginHeadline" value="${esc(b.loginHeadline)}" maxlength="80"></div>
+        <div class="fld full"><label for="br-loginText">Supporting text</label><textarea class="inp" id="br-loginText" data-brand="loginText" rows="2" maxlength="200">${esc(b.loginText)}</textarea></div>
+      </form></fieldset></div></div>
+      <div class="card"><div class="card-b"><fieldset class="grp"><legend>Invoice</legend><form class="fm" onsubmit="return false">
+        ${txt('prefix','Invoice number prefix',b.prefix,'maxlength="8" style="text-transform:uppercase"')}
+        <div class="fld"><label for="co-gstin">Company GSTIN</label><input class="inp mono" id="co-gstin" data-co="gstin" value="${esc(co.gstin)}" maxlength="15"></div>
+        <div class="fld full"><label for="co-address">Registered address</label><input class="inp" id="co-address" data-co="address" value="${esc(co.address)}"></div>
+        <div class="fld full"><label for="br-terms">Terms printed on invoices</label><textarea class="inp" id="br-terms" data-brand="terms" rows="2" maxlength="400">${esc(b.terms)}</textarea></div>
+      </form></fieldset></div></div>
+    </div>
+    <div class="stack" style="position:sticky;top:16px"><div class="card"><div class="card-h"><h2>Preview</h2></div><div class="card-b" id="brand-preview">${brandPreview()}</div></div></div>
+  </div>`;
+};
+function brandChanged(key,val,full){
+  const b=B();
+  if(key==='radius'){ b.radius=+val; const rv=$('#radius-val'); if(rv) rv.textContent=val+'px' }
+  else if(key==='accent'||key==='rail'){ if(!/^#[0-9a-f]{6}$/i.test(val)) return; b[key]=val.toLowerCase(); const a=$(`#br-${key}`), p=$(`#br-${key}-pick`); if(a&&a!==document.activeElement) a.value=b[key]; if(p&&p!==document.activeElement) p.value=b[key] }
+  else if(key==='prefix') b.prefix=val.toUpperCase().replace(/[^A-Z0-9-]/g,'');
+  else b[key]=val;
+  if(key==='company'&&val.trim()) S.settings.company=val.trim();
+  applyBrand(); save(); renderRail();
+  if(full) render(); else { const pv=$('#brand-preview'); if(pv) pv.innerHTML=brandPreview() }
+}
+
 /* ============ Authentication ============ */
 // Prototype sign-in: salted SHA-256 hashes kept in this browser. Replace with a server-side identity provider for production.
 const ROLES={admin:'Administrator',sales:'Sales',stores:'Stores'};
@@ -688,13 +806,13 @@ function renderLogin(msg){
   $('#app').hidden=true; const L=$('#login'); L.hidden=false;
   L.innerHTML=`<div class="login">
     <div class="login-brand">
-      <div class="row" style="gap:14px"><div class="nd-mark">ND</div><div><b>ND Enterprises</b><span>Operations desk</span></div></div>
-      <div><h1 class="login-h">Stock, sales and invoicing for the shop floor.</h1>
-        <p>Scan item labels at the counter, bill customers in their own currency, and keep the stores ledger reconciled with the floor.</p></div>
+      <div class="row" style="gap:14px">${logoMark('nd')}<div><b>${esc(B().company)}</b><span>${esc(B().tagline)}</span></div></div>
+      <div><h1 class="login-h">${esc(B().loginHeadline)}</h1>
+        <p>${esc(B().loginText)}</p></div>
       <div class="login-mods"><span>Stock master</span><span>Inward &amp; GRN</span><span>Reconciliation</span><span>QR billing</span><span>Multi-currency invoices</span><span>Live INR rates</span></div>
     </div>
     <div class="login-form"><form class="login-card" data-form="login" autocomplete="on">
-      <div><div class="eyebrow">Sign in</div><h2>ND Enterprises</h2></div>
+      <div><div class="eyebrow">Sign in</div><h2>${esc(B().company)}</h2></div>
       ${msg?`<div class="err" role="alert">${esc(msg)}</div>`:''}
       <div class="fld"><label for="lg-user">Username</label><input class="inp mono" id="lg-user" name="username" autocomplete="username" required autofocus></div>
       <div class="fld"><label for="lg-pw">Password</label><div class="pw-wrap"><input class="inp" id="lg-pw" name="password" type="password" autocomplete="current-password" required><button type="button" data-act="pw-toggle">Show</button></div></div>
@@ -809,7 +927,7 @@ function invoiceModal(id){
   openModal(`<div class="card-h"><h2>Invoice ${s.no}</h2><div class="row"><button class="btn" data-act="copy-inv" data-id="${s.id}">Copy summary</button><button class="btn ghost" data-act="close-modal" aria-label="Close">${ICON.x}</button></div></div>
   <div style="padding:14px"><div class="invoice">
     <div class="inv-ribbon"><div><h3>TAX INVOICE</h3><div style="font-size:11px;color:#6b7684">${s.taxMode==='LUT'?'Export of goods under LUT without payment of IGST':'Supply within Maharashtra · CGST + SGST'}</div></div>
-      <div style="text-align:right"><b>${esc(co.company)}</b><br>${esc(co.address)}<br>GSTIN <span class="mono">${co.gstin}</span></div></div>
+      <div style="text-align:right">${B().logo?`<img class="inv-logo" src="${B().logo}" alt=""><br>`:''}<b>${esc(co.company)}</b><br>${esc(co.address)}<br>GSTIN <span class="mono">${co.gstin}</span></div></div>
     <div class="meta">
       <div><div class="k">Invoice no.</div><span class="mono">${s.no}</span><br>${fmtDate(s.date)}</div>
       <div><div class="k">Bill to</div><b>${esc(c.name)}</b><br>${esc(c.contact)}<br>${esc(c.city)}, ${esc(c.country)}${c.gstin?`<br>GSTIN <span class="mono">${c.gstin}</span>`:''}</div>
@@ -824,7 +942,7 @@ function invoiceModal(id){
       <span class="lbl-grand">Total</span><span class="num grand">${cv(s.total)}</span>
       ${cur!==s.base?`<span style="color:#6b7684">Equivalent in ${s.base}</span><span class="num" style="color:#6b7684">${money(s.total,s.base)}</span>`:''}
     </div></div>
-    <div class="note">Goods once sold will be taken back only against a rejection report within 7 days. Subject to Pune jurisdiction.${s.by?` Prepared by ${esc(s.by)}.`:''} This is a prototype invoice generated with demo data.</div>
+    <div class="note">${esc(B().terms)}${s.by?` Prepared by ${esc(s.by)}.`:''} This is a prototype invoice generated with demo data.</div>
   </div></div>`,true);
 }
 
@@ -834,9 +952,10 @@ function toast(msg){ clearTimeout(toastT); let t=$('.toast'); if(!t){t=document.
 
 /* ============ Events ============ */
 document.addEventListener('click',async e=>{
-  const t=e.target.closest('[data-nav],[data-act],[data-ccy],[data-rm],[data-inv],[data-label],[data-demo],[data-step],[data-toggle-ccy]');
+  const t=e.target.closest('[data-preset],[data-nav],[data-act],[data-ccy],[data-rm],[data-inv],[data-label],[data-demo],[data-step],[data-toggle-ccy]');
   if(!t) return;
   if(t.dataset.act==='close-modal' && t.classList.contains('scrim') && e.target!==t) return;
+  if(t.dataset.preset){ const [a,r]=t.dataset.preset.split('|'); B().accent=a; B().rail=r; applyBrand(); save(); return render() }
   if(t.dataset.nav){ return go(t.dataset.nav) }
   if(t.dataset.ccy){ cart.currency=t.dataset.ccy; return render() }
   if(t.dataset.rm){ cart.lines.splice(+t.dataset.rm,1); return render() }
@@ -862,6 +981,10 @@ document.addEventListener('click',async e=>{
       cart.lines=[]; save(); render(); invoiceModal(sale.id); return toast(`Invoice ${sale.no} created · stock updated`);
     }
     case 'fetch-rates': return fetchRates(false);
+    case 'logo-upload': return $('#logo-file').click();
+    case 'logo-remove': B().logo=''; applyBrand(); save(); return render();
+    case 'brand-reset': if(t.dataset.confirm!=='1'){ t.dataset.confirm='1'; t.textContent='Confirm reset'; return }
+      S.brand={...DEFAULT_BRAND}; S.settings.company=DEFAULT_BRAND.company; applyBrand(); save(); render(); return toast('Branding reset to defaults');
     case 'signout': return signOut();
     case 'pw-toggle': { const p=$('#lg-pw'); const show=p.type==='password'; p.type=show?'text':'password'; t.textContent=show?'Hide':'Show'; return }
     case 'fill-demo': $('#lg-user').value=t.dataset.u; $('#lg-pw').value=t.dataset.p; return;
@@ -898,10 +1021,17 @@ document.addEventListener('change',e=>{
   if(t.dataset.qty!=null){ const v=parseInt(t.value,10); if(v>0) cart.lines[+t.dataset.qty].qty=v; return render() }
   if(t.dataset.ovr){ const v=parseFloat(t.value); if(v>0) S.settings.overrides[t.dataset.ovr]=v; else delete S.settings.overrides[t.dataset.ovr];
     if(S.settings.ratesSource!=='live') S.settings.ratesSource=Object.keys(S.settings.overrides).length?'manual':'sample'; save(); return render() }
+  if(t.dataset.brand && ['font','theme','accent','rail'].includes(t.dataset.brand)){ return brandChanged(t.dataset.brand,t.value,true) }
+  if(t.id==='logo-file' && t.files[0]){ const f=t.files[0]; t.value='';
+    if(!/^image\/(png|jpeg|svg\+xml|webp|gif)$/.test(f.type)) return toast('Use a PNG, JPG, SVG or WebP image.');
+    if(f.size>300*1024) return toast(`That file is ${Math.round(f.size/1024)} KB. Use a logo under 300 KB.`);
+    const rd=new FileReader(); rd.onload=()=>{ B().logo=rd.result; applyBrand(); save(); render(); toast('Logo updated') }; rd.readAsDataURL(f); return }
   if(t.id==='gst-rate'){ const v=parseFloat(t.value); if(v>=0) {S.settings.gst=v; save()} return }
   if(t.id==='qr-file' && t.files[0]){ const f=t.files[0]; const rd=new FileReader(); rd.onload=async()=>{ const r=await decodeImageSrc(rd.result); if(r) showHit(r); else { const b=$('#scan-result'); if(b) b.innerHTML='<div class="hit" style="border-color:var(--bad);background:var(--bad-soft)"><b>No QR code found in that photo</b><span style="font-size:12.5px">Retake it closer, with the whole label in frame.</span></div>' } }; rd.readAsDataURL(f); t.value='' }
 });
 document.addEventListener('input',e=>{
+  if(e.target.dataset.brand){ const k=e.target.dataset.brand; return brandChanged(k,e.target.value,false) }
+  if(e.target.dataset.co){ S.settings[e.target.dataset.co]=e.target.value; save(); return }
   if(e.target.dataset.count!=null) updateRecon();
   if(e.target.id==='item-filter'){ itemFilter=e.target.value; const pos=e.target.selectionStart; render(); const n=$('#item-filter'); n.focus(); n.setSelectionRange(pos,pos) }
 });
@@ -934,6 +1064,7 @@ document.addEventListener('submit',e=>{
 });
 
 (async function boot(){
+  applyBrand();
   if(!S.users||!S.users.length){
     try{ S.users=await Promise.all(DEMO_USERS.map(([n,u,r,p])=>makeUser(n,u,r,p))); save() }
     catch(e){ S.users=[]; return renderLogin('Sign-in needs a secure page. Open the app over https:// or localhost.') }
